@@ -1,7 +1,7 @@
 # Exploratory Data Analysis with SQL:Job Market Analysis
 
 
-![Project 1 overview](image-1.png)))  
+![alt text](image.png))
 
 A SQL project analysing the data engineer job market using real world job posting data. It demonstrates my ability to **write production-quality analytical SQL, design efficient queries, and turn business questions into data-driven insights**.
 
@@ -13,7 +13,10 @@ A SQL project analysing the data engineer job market using real world job postin
 
 If you only have a minute, review these
 
-[Top Demanded Skills Query](/Lessons/1_Topskills.sql)
+1. [Top Demanded Skills Query](./sql_queries/1_Topskills.sql)  
+2. [Top Paid Skills Query](./sql_queries/2.toppaidskills.sql)  
+3. [Optimal Skills](./sql_queries/3.optimalskills.sql) 
+
 
 
 
