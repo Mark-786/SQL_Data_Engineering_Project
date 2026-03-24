@@ -1,7 +1,6 @@
-# Exploratory Data Analysis with SQL:Job Market Analysis
+# Exploratory Data Analysis with SQL: Job Market Analysis
 
-
-![alt text](image.png))
+![Project Overview](https://github.com/lukebarousse/SQL_Data_Engineering_Course/raw/main/Resources/images/1_1_Project1_EDA.png)
 
 A SQL project analysing the data engineer job market using real world job posting data. It demonstrates my ability to **write production-quality analytical SQL, design efficient queries, and turn business questions into data-driven insights**.
 
@@ -23,28 +22,64 @@ If you only have a minute, review these
 
 
 
-## Problem & Context
+### Problem & Context
+
+Job market analysts need to answer questions like:
+
+- 🎯 **Most in-demand:** Which skills are most in-demand for data engineers?  
+- 💰 **Highest paid:** Which skills command the highest salaries?  
+- ⚖️ **Best trade-off:** What is the optimal skill set balancing demand and compensation?  
+
+This project analyses a data warehouse built using a star schema design. The warehouse structure consists of:
+
+![Data Warehouse](https://github.com/lukebarousse/SQL_Data_Engineering_Course/raw/main/Resources/images/1_2_Data_Warehouse.png)
+
+
+- **Fact Table:** job_postings_fact - Central table containing job posting details (job titles, locations, salaries, dates, etc.)  
+- **Dimension Tables:**  
+- *company_dim* - Company information linked to job postings  
+- *skills_dim* - Skills catalog with skill names and types  
+- **Bridge Table** : skills_job_dim - Resolves the many-to-many relationship between job postings and skills  
+
+By querying across these interconnected tables, I extracted insights about skill demand, salary patterns, and optimal skill combinations for data engineering roles.
 
 ## Tech Stack
 
+- 🐤 **Query Engine:** DuckDB for fast OLAP-style analytical queries  
+- 🧮 **Language:** SQL (ANSI-style with analytical functions)
+- 📊 **Data Model:** Star schema with fact + dimension + bridge tables  
+- 🛠️ **Development:** VS Code for SQL editing + Terminal for DuckDB CLI  
+- 📦 **Version Control:** Git/GitHub for versioned SQL scripts
+
+
 ## Analysis Overview
+
+### Query Structure
+- **Top Demanded Skills** – Identifies the 10 most in-demand skills for remote data engineer positions
+- **Top Paying Skills** – Analyses the 25 highest-paying skills with salary and demand metrics  
+- **Optimal Skills** – Calculates an optimal score using natural log of demand combined with median salary to identify the most valuable skills to learn  
+
+### Key Insights
+- 🧠 **Core languages:** SQL and Python each appear in ~29,000 job postings, making them the most demanded skills  
+- ☁️ **Cloud platforms:** AWS and Azure are critical for modern data engineering roles  
+- 🧱 **Infra & tooling:** Kubernetes, Docker, and Terraform are associated with premium salaries  
+- 🔥 **Big data tools:** Apache Spark shows strong demand with competitive compensation  
 
 ## SQL Skills Demonstrated
 
-```SQL
-SELECT * FROM skills_job_dim limit 6;
+### Query Design & Optimization
 
-SELECT sd.skills, COUNT(jpf.job_id) AS total_count
-FROM skills_dim AS sd 
-LEFT JOIN skills_job_dim AS sjd 
-ON sd.skill_id = sjd.skill_id
-LEFT JOIN job_postings_fact AS jpf
-ON sjd.job_id = jpf.job_id
-WHERE job_title_short = 'Data Engineer' AND  job_location LIKE '%UK%' 
-GROUP BY sd.skills
-ORDER BY total_count DESC
-limit 10;
-```
+- **Complex Joins:** Multi-table INNER JOIN operations across job_postings_fact, skills_job_dim, and skills_dim  
+- **Aggregations:** COUNT(), MEDIAN(), ROUND() for statistical analysis  
+- **Filtering:** Boolean logic with WHERE clauses and multiple conditions (job_title_short, job_work_from_home, salary_year_avg IS NOT NULL)  
+- **Sorting & Limiting:** ORDER BY with DESC and LIMIT for top-N analysis
+
+### Data Analysis Techniques
+- **Grouping:** GROUP BY for categorical analysis by skill  
+- **Mathematical Functions:** LN() for natural logarithm transformation to normalise demand metrics  
+- **Calculated Metrics:** Derived optimal score combining log-transformed demand with median salary  
+- **HAVING Clause:** Filtering aggregated results (skills with >= 100 postings)  
+- **NULL Handling:** Proper filtering of incomplete records (salary_year_avg IS NOT NULL)
 
 
 
