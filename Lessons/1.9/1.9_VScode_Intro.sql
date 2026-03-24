@@ -1,1 +1,0 @@
-select marky as answer;

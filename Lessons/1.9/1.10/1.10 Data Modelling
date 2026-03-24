@@ -1,6 +1,0 @@
-SELECT company_id, name 
-from company_dim 
-LIMIT 10;
-
-SELECT * FROM information_schema.columns
-WHERE table_catalog = 'data_jobs';
